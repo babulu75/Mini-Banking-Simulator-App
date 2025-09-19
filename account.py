@@ -1,3 +1,4 @@
+import requests
 class Account:
     account_count=0
     def __init__(self,name,bal):
@@ -28,17 +29,29 @@ class Account:
             return
         self.__bal-=amount
         try:
-            cursor.execute("UPDATE USERS SET AMOUNT=%s WHERE NAME=%s",(self.__bal,self.name))
-            print(f"Withdraw of {amount} is successful...😇")
-            print(f"Remaining account balance is {self.__bal}")
+            response = requests.put(
+                "http://localhost:3000/withdraw",   # ✅ Correct URL
+                json={"username": self.name, "amount": self.__bal}
+            )
+
+            if response.status_code == 200:
+                data = response.json()
+                print(f"Withdraw of {amount} is successful...😇")
+                print(f"Remaining account balance is {data['balance']}")
+            else:
+                print("Withdraw Unsuccessful:", response.json())
+
         except Exception as e:
-            print("Withdraw failed..",e)
+            print("Withdraw failed..", e)
     def deposit(self,amount):
         self.__bal+=amount
         try:
-            cursor.execute("UPDATE USERS SET AMOUNT=%s WHERE NAME=%s",(self.__bal,self.name))
-            print(f"Deposit of {amount} is successful...😇")
-            print(f"Updated account balance is {self.__bal}")
+            response=requests.put("http://localhost:3000/deposit",json={"username":self.name,"amount":self.__bal})
+            if response.status_code==200:
+                print(f"Deposit of {amount} is successful...😇")
+                print(f"Updated account balance is {self.__bal}")
+            else:
+                print("Deposit unsuccessful..",response.json())
         except Exception as e:
             print("Deposit failed..",e)
     def getBalance(self):

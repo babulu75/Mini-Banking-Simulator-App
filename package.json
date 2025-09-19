@@ -1,0 +1,26 @@
+{
+  "name": "mini-banking-simulator-app",
+  "version": "1.0.0",
+  "description": "Mini Banking Simulation App",
+  "homepage": "https://github.com/babulu75/Mini-Banking-Simulator-App#readme",
+  "bugs": {
+    "url": "https://github.com/babulu75/Mini-Banking-Simulator-App/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babulu75/Mini-Banking-Simulator-App.git"
+  },
+  "license": "ISC",
+  "author": "Babulu",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.15.0",
+    "nodemon": "^3.1.10"
+  }
+}

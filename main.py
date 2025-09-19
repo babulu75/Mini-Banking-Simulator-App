@@ -1,7 +1,8 @@
 from account import Account
-from db import get_connection
-conn,cursor=get_connection()
-print("Database connection Successful..." if cursor else "Database connection Failed....")
+# from db import get_connection
+import requests
+# conn,cursor=get_connection()
+# print("Database connection Successful..." if cursor else "Database connection Failed....")
 
 print("........Welcome Just A Minute Bank Services........")
 while True:
@@ -10,13 +11,22 @@ while True:
         print("Enter your Details")
         username=input("Enter your Username :")
         password=input("Enter your password :")
-        cursor.execute("SELECT * FROM USERS WHERE name = %s", (username,))
-        row = cursor.fetchone()
+
+        response=requests.post("http://localhost:3000/getuser", json={"username":username})
+
+        if response.status_code==200:
+            row=response.json()
+            print("User found: ",row)
+        else:
+            print("Error:",response.json())
+
+        # cursor.execute("SELECT * FROM USERS WHERE name = %s", (username,))
+        # row = cursor.fetchone()
         if row:
-            if row[4]==password:
-                obj=Account(row[1],row[3])
+            if row['PASSWORD']==password:
+                obj=Account(row['NAME'],row['AMOUNT'])
                 print("****************************")
-                print(f"______Welcome {row[1]}______")
+                print(f"______Welcome {row["NAME"]}______")
                 func=int(input("1.Check Balance \n2.Withdraw Money \n3.Deposit Money"))
                 if func==1:
                     obj.showBalance()
