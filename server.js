@@ -25,6 +25,26 @@ app.get("/", (req, res) => {
     res.send("hello world");
 });
 
+app.post("/createuser",(req,res)=>{
+    const {username,phone_number,amount,password}=req.body;
+    db.query(
+        "INSERT INTO USERS(NAME,PHONE_NUMBER,AMOUNT,PASSWORD) VALUES(?,?,?,?)",[username,phone_number,amount,password],(err,result)=>{
+            if (err) {return res.status(500).json({error:err})}
+            if (result.affectedRows>0){
+                return res.status(200).json({
+                    message: "Account created successfully",
+                    username: username,
+                    balance: amount
+                });
+            }
+            else{
+                return res.status(400).json({message:"Invalid details"})
+            }
+        }
+
+    )
+})
+
 app.post("/getuser", (req, res) => {
     const { username } = req.body;
     console.log("Received request for user:", username);

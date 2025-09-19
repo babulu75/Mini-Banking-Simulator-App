@@ -51,11 +51,18 @@ while True:
         amount=int(input("Enter amount you greater than 1000 in your new account : "))
         password=input("Create Password : ")
         obj=Account(username,amount)
-        query="INSERT INTO USERS (NAME,PHONE_NUMBER,AMOUNT,PASSWORD) VALUES (%s, %s, %s, %s)"
-        val=(username,phone_number,amount,password)
+        # query="INSERT INTO USERS (NAME,PHONE_NUMBER,AMOUNT,PASSWORD) VALUES (%s, %s, %s, %s)"
+        # val=(username,phone_number,amount,password)
         try:
-            cursor.execute(query,val)
-            conn.commit()
-            print(f"Account creation successful {username} with account balance{amount}")
+            # cursor.execute(query,val)
+            # conn.commit()
+            response=requests.post(
+                "http://localhost:3000/createuser",
+                json={"username":username,"phone_number":phone_number,"amount":amount,"password":password}
+            )
+            if response.status_code==200:
+                print(f"Account creation successful {username} with account balance{amount}")
+            else:
+                print("Error while Creating account",response.json())
         except Exception as e:
             print("Account creation failed",e)
