@@ -1,26 +1,19 @@
-🏦 Just A Minute Bank – OOPs Based Banking System
+🏦 Just A Minute Bank – OOPs Based Banking System with API Integration
 📌 Overview
 
-This project is a Banking System simulation built in Python that demonstrates the core Object-Oriented Programming (OOPs) concepts.
-It allows users to:
+This project is a Banking System simulation built using Python (OOPs) for the client-side and a Node.js + Express backend with MySQL for persistent storage.
 
-Create a new account
-
-Login to an existing account
-
-Deposit and withdraw money
-
-Check account balance
-
-The project also integrates with MySQL database to persist user details and account transactions.
+It demonstrates core Object-Oriented Programming (OOPs) concepts while also showing how to integrate Python applications with REST APIs.
 
 🚀 Features
 
-✔️ User-friendly menu-driven interface
+✔️ User-friendly menu-driven Python interface
 ✔️ Secure account creation with password authentication
+✔️ Backend server built with Node.js & Express
 ✔️ Database-backed using MySQL
 ✔️ Multiple account types: SavingsAccount & CurrentAccount
-✔️ Demonstrates all Pillars of OOPs
+✔️ API communication using requests library in Python
+✔️ Demonstrates all pillars of OOPs + real-world API integration
 
 🧑‍💻 OOPs Concepts Covered
 🔹 1. Class & Objects
@@ -31,51 +24,51 @@ Objects represent individual user accounts
 
 🔹 2. Encapsulation
 
-Balance (__bal) is private, accessed via methods only
-
-Hides sensitive account data from direct access
+Balance (__bal) is private, accessed only via methods
 
 🔹 3. Inheritance
 
 SavingsAccount and CurrentAccount inherit from Account
 
-Reuse and extend functionality
-
 🔹 4. Polymorphism
 
-Method Overriding in withdraw() for SavingsAccount
-
-Different behavior with the same method name
+Method overriding in withdraw() for SavingsAccount
 
 🔹 5. Abstraction
 
-Internal DB queries hidden from users
+Internal DB queries are hidden in the backend API
 
-Users interact only through simple methods like deposit(), withdraw()
+Python client interacts only via API calls (deposit(), withdraw(), etc.)
 
 🔹 6. Class & Static Methods
 
 noOfAccounts() → Class method
 
-bankPolicy() → Static method (no need for object creation)
+bankPolicy() → Static method (no object needed)
 
 📂 Project Structure
 bank_app/
-│── account.py   # All OOP classes (Account, SavingsAccount, CurrentAccount)
-│── db.py        # Database connection setup (MySQL)
-│── main.py      # Main program (menu & user interaction)
+│── account.py        # OOP classes (Account, SavingsAccount, CurrentAccount)
+│── main.py           # Python client (menu-driven + API calls)
+│── server.js         # Node.js + Express backend (REST APIs)
+│── db.js             # MySQL connection setup for Node.js
 
 ⚙️ Setup & Installation
 🔧 Prerequisites
 
 Python 3.x
 
+Node.js & npm
+
 MySQL installed & running
 
-📦 Install Dependencies
-pip install mysql-connector-python
+📦 Python Dependencies
+pip install requests
 
-🗄️ Create Database & Table
+📦 Node.js Dependencies
+npm install express mysql2 body-parser cors
+
+🗄️ Database Setup
 
 In MySQL, run:
 
@@ -90,12 +83,27 @@ CREATE TABLE USERS (
     PASSWORD VARCHAR(50)
 );
 
-▶️ Run the Application
+🌐 API Endpoints (Node.js Server)
+Method	Endpoint	Description
+POST	/createuser	Create a new user account
+POST	/getuser	Fetch user details by username
+PUT	/deposit	Deposit money into account
+PUT	/withdraw	Withdraw money from account
+▶️ Running the Application
+Start Backend Server
+node server.js
+
+
+Server runs on http://localhost:3000
+
+Run Python Client
 python main.py
 
 🎯 Example Flow
 
-Start the program
+Start Node.js server (server.js)
+
+Run Python program (main.py)
 
 Choose option:
 
@@ -105,7 +113,7 @@ Choose option:
 
 3 → Exit
 
-Perform actions:
+Perform actions (via API calls):
 
 Check Balance
 
@@ -115,31 +123,29 @@ Withdraw Money
 
 📘 Learning Outcomes
 
-This project helps understand:
-
-How OOPs concepts work in real-world applications
+How OOPs concepts apply in real-world applications
 
 How to modularize Python code into multiple files
 
-How to connect Python with MySQL
+How to connect Node.js with MySQL
 
-How to build a simple yet functional banking system
+How to consume REST APIs from Python using requests
+
+How client-server systems work in practice
 
 🌟 Future Enhancements
 
-🔹 Add transaction history for each account
+🔹 Add transaction history per account
 🔹 Implement password hashing for better security
-🔹 Add GUI interface using Tkinter / Flask
-🔹 Support for multiple currencies
+🔹 Add GUI (Tkinter / Flask frontend)
+🔹 JWT authentication for secure login
+🔹 Support multiple currencies
 
 👨‍💻 Author
 
 Babulu Digamarti
-
 🎓 AI & Data Science Student
-
 💻 Full Stack Developer
+🔍 Exploring OOPs, Databases & API systems
 
-🔍 Exploring OOPs & Database Systems
-
-✨ This project is more than just a banking system – it’s a complete showcase of OOP concepts in Python with real-world implementation.
+✨ This project is not just a banking system – it’s a full-stack OOPs showcase with real-world API integration
